@@ -1,3 +1,5 @@
+using HomeControl.Service.HttpClient;
+using HomeControl.Service.HueApi;
 using HomeControl.Service.Services;
 using HomeControl.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +25,10 @@ namespace HomeControl.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
+			
+			services.AddSingleton<IHueApi, HueApi>();
+			
+			services.AddTransient<IHttpClient, HttpClient>();
 			services.AddTransient<ILightService, LightService>();
 
 			// In production, the React files will be served from this directory
