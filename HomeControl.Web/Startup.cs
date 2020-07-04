@@ -1,5 +1,5 @@
-using HomeControl.Service.Interfaces;
 using HomeControl.Service.Services;
+using HomeControl.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

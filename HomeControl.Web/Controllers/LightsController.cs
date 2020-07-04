@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using HomeControl.Common.ViewModels;
-using HomeControl.Service.Interfaces;
+using HomeControl.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeControl.Web.Controllers

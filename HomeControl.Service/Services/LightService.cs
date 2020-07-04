@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HomeControl.Common.Dtos.HueApi.Responses;
 using HomeControl.Common.ViewModels;
-using HomeControl.Service.Interfaces;
+using HomeControl.Service.Services.Interfaces;
 using Newtonsoft.Json;
 
 namespace HomeControl.Service.Services
