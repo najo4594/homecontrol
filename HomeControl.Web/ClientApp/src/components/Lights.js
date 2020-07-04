@@ -1,5 +1,7 @@
 ﻿import React, {Component} from 'react';
 import {Card, Col, Row} from 'react-bootstrap'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
 
 export class Lights extends Component {
     static displayName = Lights.name;
@@ -29,7 +31,10 @@ export class Lights extends Component {
                                                 <p>Zustand:</p>
                                             </Col>
                                             <Col xs={6} className={'text-right'}>
-                                                <p>{light.state.on ? 'Eingeschaltet' : 'Ausgeschaltet'}</p>
+                                                <p>{light.state.on ?
+                                                    <FontAwesomeIcon icon={faCheckCircle} className="primary active-device"/> :
+                                                    <FontAwesomeIcon icon={faTimesCircle} className="inactive-device"/>}
+                                                </p>
                                             </Col>
                                         </Row>
                                     </Card.Body>
