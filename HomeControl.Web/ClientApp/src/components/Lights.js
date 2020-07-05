@@ -8,13 +8,12 @@ export class Lights extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {lights: [], loading: true};
+        this.state = {lights: [], rooms: [], loading: true};
     }
 
     componentDidMount() {
         this.getLightsData();
     }
-
 
     render() {
         return (
@@ -32,7 +31,8 @@ export class Lights extends Component {
                                             </Col>
                                             <Col xs={6} className={'text-right'}>
                                                 <p>{light.state.on ?
-                                                    <FontAwesomeIcon icon={faCheckCircle} className="primary active-device"/> :
+                                                    <FontAwesomeIcon icon={faCheckCircle}
+                                                                     className="primary active-device"/> :
                                                     <FontAwesomeIcon icon={faTimesCircle} className="inactive-device"/>}
                                                 </p>
                                             </Col>
@@ -42,7 +42,7 @@ export class Lights extends Component {
                                                 <p>Raum:</p>
                                             </Col>
                                             <Col xs={6} className={'text-right'}>
-                                                <p>{light.roomId}</p>
+                                                <p>{this.getRoomName(light.roomId)}</p>
                                             </Col>
                                         </Row>
                                     </Card.Body>
@@ -55,8 +55,22 @@ export class Lights extends Component {
     }
 
     async getLightsData() {
-        const response = await fetch('api/lights');
-        const data = await response.json();
-        this.setState({lights: data, loading: false});
+        const lightsResponse = await fetch('api/lights');
+        const lightsData = await lightsResponse.json();
+        this.setState({lights: lightsData});
+
+        const roomsResponse = await fetch('api/rooms');
+        const roomsData = await roomsResponse.json();
+        this.setState({rooms: roomsData});
+
+        this.setState({loading: false});
+
+    }
+    
+    getRoomName(id) {
+        const room = this.state.rooms.find(f => {
+            return f.id === id
+        });
+        return room.name; 
     }
 }

@@ -6,8 +6,8 @@ namespace HomeControl.DataAccess
 {
 	public interface IHomeControlRepository
 	{
-		Task<Device> GetDeviceById(int id);
-
 		Task<List<Device>> GetAllDevices();
+
+		Task<List<Room>> GetAllRooms();
 	}
 }

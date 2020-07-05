@@ -41,6 +41,7 @@ namespace HomeControl.Web
 			services.AddTransient<IHomeControlRepository, HomeControlRepository>();
 			services.AddTransient<IHttpClient, HttpClient>();
 			services.AddTransient<ILightService, LightService>();
+			services.AddTransient<IRoomService, RoomService>();
 			
 			// In production, the React files will be served from this directory
 			services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });

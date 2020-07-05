@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using HomeControl.Common.Dtos.HueApi.Responses;
 using HomeControl.Common.ViewModels;
 using HomeControl.DataAccess;
+using HomeControl.DataAccess.Models;
 using HomeControl.Service.HueApi;
 using HomeControl.Service.Services.Interfaces;
 
@@ -22,7 +23,7 @@ namespace HomeControl.Service.Services
 
 		public async Task<IEnumerable<DeviceViewModel>> GetAllLights()
 		{
-			var devices = await _homeControlRepository.GetAllDevices().ConfigureAwait(false);
+			List<Device> devices = await _homeControlRepository.GetAllDevices().ConfigureAwait(false);
 
 			var lightsResponse = _hueApi.Get<IDictionary<int, LightItemResponseDto>>("lights");
 

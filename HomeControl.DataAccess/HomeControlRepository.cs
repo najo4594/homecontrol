@@ -16,14 +16,14 @@ namespace HomeControl.DataAccess
 			_context = context;
 		}
 
-		public Task<Device> GetDeviceById(int id)
-		{
-			return _context.Devices.Where(r => r.Id == id).FirstOrDefaultAsync();
-		}
-
 		public Task<List<Device>> GetAllDevices()
 		{
 			return _context.Devices.ToListAsync();
+		}
+
+		public Task<List<Room>> GetAllRooms()
+		{
+			return _context.Rooms.ToListAsync();
 		}
 	}
 }
