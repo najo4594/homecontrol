@@ -37,6 +37,14 @@ export class Lights extends Component {
                                                 </p>
                                             </Col>
                                         </Row>
+                                        <Row>
+                                            <Col xs={6}>
+                                                <p>Raum:</p>
+                                            </Col>
+                                            <Col xs={6} className={'text-right'}>
+                                                <p>{light.roomId}</p>
+                                            </Col>
+                                        </Row>
                                     </Card.Body>
                                 </Card>
                             </Col>
