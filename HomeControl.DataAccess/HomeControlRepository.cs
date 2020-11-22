@@ -25,5 +25,10 @@ namespace HomeControl.DataAccess
 		{
 			return _context.Rooms.ToListAsync();
 		}
+
+		public Task<List<Device>> GetDevicesForRoom(int roomId)
+		{
+			return _context.Devices.Where(r => r.RoomId == roomId).ToListAsync();
+		}
 	}
 }

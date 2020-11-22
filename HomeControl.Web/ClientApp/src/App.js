@@ -1,20 +1,36 @@
-import React, { Component } from 'react';
-import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
+import React, {Component} from 'react';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
+import {Home} from './components/Home';
 
 import './custom.css'
-import {Lights} from "./components/Lights";
+import {Lights} from './components/Lights';
+import Room from './components/Room.js';
+import {Layout} from "./components/Layout";
 
 export default class App extends Component {
-  static displayName = App.name;
+    static displayName = App.name;
 
-  render () {
-    return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-          <Route path='/lights' component={Lights} />
-      </Layout>
-    );
-  }
+    render() {
+        return (
+            <Layout>
+                <Router>
+                    <Switch>
+                        <Route exact path='/'>
+                            <Home/>
+                        </Route>
+                        <Route path='/lights'>
+                            <Lights/>
+                        </Route>
+                        <Route path='/rooms/:roomId'>
+                            <Room/>
+                        </Route>
+                    </Switch>
+                </Router>
+            </Layout>
+        );
+    }
 }

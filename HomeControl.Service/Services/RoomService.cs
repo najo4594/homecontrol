@@ -22,7 +22,14 @@ namespace HomeControl.Service.Services
 		{
 			List<Room> rooms = await _homeControlRepository.GetAllRooms().ConfigureAwait(false);
 
-			return rooms.Select(s => new RoomViewModel { Id = s.Id, Name = s.Name }).ToList();
+			return rooms.Select(s => new RoomViewModel { Id = s.Id, Name = s.Name });
+		}
+
+		public async Task<IEnumerable<DeviceViewModel>> GetDevicesForRoom(int roomId)
+		{
+			List<Device> devices = await _homeControlRepository.GetDevicesForRoom(roomId).ConfigureAwait(false);
+
+			return devices.Select(s => new DeviceViewModel { Id = s.Id, Name = s.Name, RoomId = s.RoomId });
 		}
 	}
 }

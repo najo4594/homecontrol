@@ -8,5 +8,7 @@ namespace HomeControl.Service.Services.Interfaces
 	public interface IRoomService
 	{
 		Task<IEnumerable<RoomViewModel>> GetAllRooms();
+
+		Task<IEnumerable<DeviceViewModel>> GetDevicesForRoom(int roomId);
 	}
 }
