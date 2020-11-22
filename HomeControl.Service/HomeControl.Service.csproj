@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\HomeControl.Common\HomeControl.Common.csproj" />
+      <ProjectReference Include="..\HomeControl.DataAccess\HomeControl.DataAccess.csproj" />
     </ItemGroup>
 
     <ItemGroup>

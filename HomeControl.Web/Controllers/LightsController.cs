@@ -18,7 +18,7 @@ namespace HomeControl.Web.Controllers
 		}
 
 		[HttpGet]
-		public IEnumerable<LightViewModel> GetAllLights()
+		public Task<IEnumerable<DeviceViewModel>> GetAllLights()
 		{
 			return _lightService.GetAllLights();
 		}
