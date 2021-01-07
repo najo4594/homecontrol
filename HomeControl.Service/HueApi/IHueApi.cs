@@ -5,6 +5,8 @@ namespace HomeControl.Service.HueApi
 {
 	public interface IHueApi
 	{
-		IDictionary<int, GroupResponse> GetAllGroups();
+		IDictionary<int, Group> GetAllGroups();
+
+		IDictionary<int, Light> GetAllLights();
 	}
 }

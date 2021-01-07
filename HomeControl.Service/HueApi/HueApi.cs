@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using HomeControl.Common.Dtos.HueApi.Responses;
 using HomeControl.Service.HttpClient;
@@ -10,7 +9,8 @@ namespace HomeControl.Service.HueApi
 {
 	public class HueApi : IHueApi
 	{
-		private const string _groupsUrl = "groups";
+		private const string GroupsUrl = "groups";
+		private const string LightsUrl = "lights";
 		private readonly IHttpClient _httpClient;
 		private readonly string _bridgeIp;
 		private readonly string _userName;
@@ -22,9 +22,14 @@ namespace HomeControl.Service.HueApi
 			_userName = GetUser(configuration);
 		}
 
-		public IDictionary<int, GroupResponse> GetAllGroups()
+		public IDictionary<int, Group> GetAllGroups()
 		{
-			return Get<Dictionary<int, GroupResponse>>(_groupsUrl);
+			return Get<IDictionary<int, Group>>(GroupsUrl);
+		}
+
+		public IDictionary<int, Light> GetAllLights()
+		{
+			return Get<IDictionary<int, Light>>(LightsUrl);
 		}
 
 		private T Get<T>(string resourcePath)
@@ -42,7 +47,7 @@ namespace HomeControl.Service.HueApi
 
 			string responseString = _httpClient.Get(url);
 
-			return JsonConvert.DeserializeObject<IEnumerable<BridgeDiscoverResponse>>(responseString).FirstOrDefault()?.InternalIpAddress;
+			return JsonConvert.DeserializeObject<IEnumerable<BridgeDiscover>>(responseString).FirstOrDefault()?.InternalIpAddress;
 		}
 
 		private string GetResourceUrl(string resourcePath)

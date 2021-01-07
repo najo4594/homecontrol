@@ -15,7 +15,9 @@ namespace HomeControl.DataAccess
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Room>().HasIndex(b => b.RoomId).IsUnique();
+			modelBuilder.Entity<Room>().HasIndex(i => i.RoomId).IsUnique();
+			
+			modelBuilder.Entity<Device>().HasIndex(i => i.DeviceId).IsUnique();
 		}
 	}
 }

@@ -6,7 +6,6 @@ using HomeControl.DataAccess;
 using HomeControl.DataAccess.Models;
 using HomeControl.Service.HueApi;
 using HomeControl.Service.Services.Interfaces;
-
 namespace HomeControl.Service.Services
 {
 	public class SynchronizationService : ISynchronizationService
@@ -22,28 +21,59 @@ namespace HomeControl.Service.Services
 
 		public void Synchronize()
 		{
-			IDictionary<int, GroupResponse> groups = _hueApi.GetAllGroups();
-			IDictionary<int, GroupResponse> rooms = groups
+			IDictionary<int, Group> groups = _hueApi.GetAllGroups()
 				.Where(r => r.Value.Type == GroupTypes.Room.ToString())
 				.ToDictionary(d => d.Key, d => d.Value);
 
-			List<Room> existingRooms = _context.Rooms.ToList();
+			List<Room> rooms = SynchronizeRooms(groups);
+			SynchronizeDevices(groups, rooms);
+			_context.SaveChanges();
+		}
 
-			foreach (int roomId in rooms.Keys)
+		private List<Room> SynchronizeRooms(IDictionary<int, Group> groups)
+		{
+			List<Room> rooms = _context.Rooms.ToList();
+
+			foreach (int groupId in groups.Keys)
 			{
-				GroupResponse roomFromApi = rooms[roomId];
+				Group group = groups[groupId];
 
-				Room roomToSave = existingRooms.FirstOrDefault(r => r.RoomId == roomId);
+				Room roomToSave = rooms.FirstOrDefault(r => r.RoomId == groupId);
 
 				if (roomToSave == null)
 				{
-					roomToSave = new Room { RoomId = roomId };
+					roomToSave = new Room { RoomId = groupId };
 					_context.Rooms.Add(roomToSave);
+					rooms.Add(roomToSave);
 				}
 
-				roomToSave.Name = roomFromApi.Name;
+				roomToSave.Name = group.Name;
 			}
-			_context.SaveChanges();
+
+			return rooms;
+		}
+
+		private void SynchronizeDevices(IDictionary<int, Group> groups, List<Room> rooms)
+		{
+			IDictionary<int, Light> lights = _hueApi.GetAllLights();
+			List<Device> existingDevices = _context.Devices.ToList();
+
+			foreach (int lightId in lights.Keys)
+			{
+				Light light = lights[lightId];
+
+				Device deviceToSave = existingDevices.FirstOrDefault(r => r.DeviceId == lightId);
+				int groupId = groups.FirstOrDefault(r => r.Value.Lights.Contains(lightId)).Key;
+				Room room = rooms.FirstOrDefault(r => r.RoomId == groupId);
+
+				if (deviceToSave == null)
+				{
+					deviceToSave = new Device { DeviceId = lightId, Room = room };
+					_context.Devices.Add(deviceToSave);
+				}
+
+				deviceToSave.Name = light.Name;
+			}
 		}
 	}
 }
