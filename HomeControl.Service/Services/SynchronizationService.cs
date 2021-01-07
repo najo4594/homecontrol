@@ -6,6 +6,7 @@ using HomeControl.DataAccess;
 using HomeControl.DataAccess.Models;
 using HomeControl.Service.HueApi;
 using HomeControl.Service.Services.Interfaces;
+
 namespace HomeControl.Service.Services
 {
 	public class SynchronizationService : ISynchronizationService
@@ -63,17 +64,22 @@ namespace HomeControl.Service.Services
 				Light light = lights[lightId];
 
 				Device deviceToSave = existingDevices.FirstOrDefault(r => r.DeviceId == lightId);
-				int groupId = groups.FirstOrDefault(r => r.Value.Lights.Contains(lightId)).Key;
-				Room room = rooms.FirstOrDefault(r => r.RoomId == groupId);
 
 				if (deviceToSave == null)
 				{
+					Room room = GetRoomForDevice(groups, rooms, lightId);
 					deviceToSave = new Device { DeviceId = lightId, Room = room };
 					_context.Devices.Add(deviceToSave);
 				}
 
 				deviceToSave.Name = light.Name;
 			}
+		}
+
+		private Room GetRoomForDevice(IDictionary<int, Group> groups, List<Room> rooms, int lightId)
+		{
+			int groupId = groups.FirstOrDefault(r => r.Value.Lights.Contains(lightId)).Key;
+			return rooms.FirstOrDefault(r => r.RoomId == groupId);
 		}
 	}
 }
