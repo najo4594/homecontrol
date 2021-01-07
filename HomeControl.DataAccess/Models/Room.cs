@@ -7,6 +7,8 @@ namespace HomeControl.DataAccess.Models
 		public int Id { get; set; }
 
 		public string Name { get; set; }
+
+		public int RoomId { get; set; }
 		
 		public List<Device> Devices { get; set; }
 	}

@@ -11,5 +11,6 @@ namespace HomeControl.DataAccess
 		Task<List<Room>> GetAllRooms();
 
 		Task<List<Device>> GetDevicesForRoom(int roomId);
+
 	}
 }

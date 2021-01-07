@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HomeControl.Common.Dtos.HueApi.Responses;
 using HomeControl.Service.HttpClient;
@@ -9,6 +10,7 @@ namespace HomeControl.Service.HueApi
 {
 	public class HueApi : IHueApi
 	{
+		private const string _groupsUrl = "groups";
 		private readonly IHttpClient _httpClient;
 		private readonly string _bridgeIp;
 		private readonly string _userName;
@@ -20,7 +22,12 @@ namespace HomeControl.Service.HueApi
 			_userName = GetUser(configuration);
 		}
 
-		public T Get<T>(string resourcePath)
+		public IDictionary<int, GroupResponse> GetAllGroups()
+		{
+			return Get<Dictionary<int, GroupResponse>>(_groupsUrl);
+		}
+
+		private T Get<T>(string resourcePath)
 		{
 			string resourceUrl = GetResourceUrl(resourcePath);
 

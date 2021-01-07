@@ -3,14 +3,16 @@ using HomeControl.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeControl.DataAccess.Migrations
 {
     [DbContext(typeof(HomeControlContext))]
-    partial class HomeControlContextModelSnapshot : ModelSnapshot
+    [Migration("20210107195035_Add_room_id_to_rooms")]
+    partial class Add_room_id_to_rooms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

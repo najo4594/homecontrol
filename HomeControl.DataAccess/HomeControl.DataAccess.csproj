@@ -7,6 +7,10 @@
     <ItemGroup>
       <Compile Remove="Migrations\20200705152437_DataSetup.cs" />
       <Compile Remove="Migrations\20200705152437_DataSetup.Designer.cs" />
+      <Compile Remove="Migrations\20210107194420_AddRoomIdToRooms.cs" />
+      <Compile Remove="Migrations\20210107194420_AddRoomIdToRooms.Designer.cs" />
+      <Compile Remove="Migrations\20210107194716_Test.cs" />
+      <Compile Remove="Migrations\20210107194716_Test.Designer.cs" />
     </ItemGroup>
 
     <ItemGroup>

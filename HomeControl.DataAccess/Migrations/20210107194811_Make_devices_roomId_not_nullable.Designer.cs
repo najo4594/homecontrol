@@ -3,14 +3,16 @@ using HomeControl.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeControl.DataAccess.Migrations
 {
     [DbContext(typeof(HomeControlContext))]
-    partial class HomeControlContextModelSnapshot : ModelSnapshot
+    [Migration("20210107194811_Make_devices_roomId_not_nullable")]
+    partial class Make_devices_roomId_not_nullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,13 +50,7 @@ namespace HomeControl.DataAccess.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomId")
-                        .IsUnique();
 
                     b.ToTable("Rooms");
                 });
