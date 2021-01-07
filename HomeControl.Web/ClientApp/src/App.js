@@ -7,7 +7,6 @@ import {
 import {Home} from './components/Home';
 
 import './custom.css'
-import {Lights} from './components/Lights';
 import Room from './components/Room.js';
 import {Layout} from "./components/Layout";
 
@@ -21,9 +20,6 @@ export default class App extends Component {
                     <Switch>
                         <Route exact path='/'>
                             <Home/>
-                        </Route>
-                        <Route path='/lights'>
-                            <Lights/>
                         </Route>
                         <Route path='/rooms/:roomId'>
                             <Room/>

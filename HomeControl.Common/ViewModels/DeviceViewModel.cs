@@ -7,7 +7,5 @@
 		public string Name { get; set; }
 
 		public int RoomId { get; set; }
-
-		public LightStateViewModel State { get; set; }
 	}
 }
