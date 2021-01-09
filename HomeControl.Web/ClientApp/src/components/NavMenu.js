@@ -31,13 +31,17 @@ export class NavMenu extends Component {
                             <Nav.Item>
                                 <Nav.Link as={Link} to="/">Home</Nav.Link>
                             </Nav.Item>
-                        </Nav>
-                        <Nav className="mr-auto">
                             <Nav.Item>
                                 <Nav.Link as={Link} to="/rooms/1">Wohnzimmer</Nav.Link>
                             </Nav.Item>
                             <Nav.Item>
                                 <Nav.Link as={Link} to="/rooms/4">Schlafzimmer</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link as={Link} to="/rooms/8">Küche</Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link as={Link} to="/rooms/2">Flur</Nav.Link>
                             </Nav.Item>
                         </Nav>
                     </Navbar.Collapse>
