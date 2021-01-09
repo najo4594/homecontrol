@@ -15,8 +15,8 @@ export default class App extends Component {
 
     render() {
         return (
-            <Layout>
-                <Router>
+            <Router>
+                <Layout>
                     <Switch>
                         <Route exact path='/'>
                             <Home/>
@@ -25,8 +25,8 @@ export default class App extends Component {
                             <Room/>
                         </Route>
                     </Switch>
-                </Router>
-            </Layout>
+                </Layout>
+            </Router>
         );
     }
 }
