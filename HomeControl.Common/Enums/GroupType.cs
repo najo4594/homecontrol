@@ -1,6 +1,6 @@
 ﻿namespace HomeControl.Common.Enums
 {
-	public enum GroupTypes
+	public enum GroupType
 	{
 		Room
 	}
