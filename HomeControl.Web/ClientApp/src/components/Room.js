@@ -1,6 +1,9 @@
 ﻿import React, {Component} from 'react';
 import {Card, Col, Row} from 'react-bootstrap'
 import {withRouter} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faLightbulb, faPlug, faQuestion} from '@fortawesome/free-solid-svg-icons';
+import * as DeviceTypes from '../constants/deviceTypes';
 
 class Room extends Component {
 
@@ -52,6 +55,42 @@ class Room extends Component {
         return roomId
     }
 
+    getLightDevices(devices) {
+        return devices.filter(f => f.typeId === DeviceTypes.Light)
+    }
+
+    getOtherDevices(devices){
+        return devices.filter(f => f.typeId !== DeviceTypes.Light)
+    }
+
+    getDeviceCard(device) {
+        let deviceTypeIcon;
+        switch (device.typeId) {
+            case DeviceTypes.Light:
+                deviceTypeIcon = <FontAwesomeIcon icon={faLightbulb} className="primary"/>
+                break;
+            case DeviceTypes.Outlet:
+                deviceTypeIcon = <FontAwesomeIcon icon={faPlug} className="primary"/>
+                break;
+            default:
+                deviceTypeIcon = <FontAwesomeIcon icon={faQuestion} className="primary"/>
+                break;
+        }
+
+        return (<Card>
+            <Card.Header>{device.name}</Card.Header>
+            <Card.Body>
+                <Row>
+                    <Col xs={6}>
+                        Typ:
+                    </Col>
+                    <Col xs={6} className="text-right">
+                        {deviceTypeIcon}
+                    </Col>
+                </Row>
+            </Card.Body>
+        </Card>)
+    }
 
     render() {
         if (this.state.loading) {
@@ -59,18 +98,40 @@ class Room extends Component {
         } else if (this.state.error) {
             return <p>Error happened :(</p>
         } else {
-            return <Row>
-                {this.state.devices.map(device =>
-                    <Col xs={3} className="my-3">
-                        <Card>
-                            <Card.Header>{device.name}</Card.Header>
-                            <Card.Body>
-                                Some information about the device
-                            </Card.Body>
-                        </Card>
+            return <>
+                <Row className="mt-3">
+                    <Col xs={12}>
+                        Lampen:
                     </Col>
-                )}
-            </Row>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <Row>
+                            {this.getLightDevices(this.state.devices).map(device =>
+                                <Col xs={3} className="my-3">
+                                    {this.getDeviceCard(device)}
+                                </Col>
+                            )}
+                        </Row>
+                    </Col>
+                </Row>
+                <Row className="mt-3">
+                    <Col xs={12}>
+                        Sonstige:
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <Row>
+                            {this.getOtherDevices(this.state.devices).map(device =>
+                                <Col xs={3} className="my-3">
+                                    {this.getDeviceCard(device)}
+                                </Col>
+                            )}
+                        </Row>
+                    </Col>
+                </Row>
+            </>
         }
     }
 }

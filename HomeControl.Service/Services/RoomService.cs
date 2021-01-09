@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeControl.Common.ViewModels;
@@ -29,7 +28,7 @@ namespace HomeControl.Service.Services
 		{
 			List<Device> devices = await _homeControlRepository.GetDevicesForRoom(roomId).ConfigureAwait(false);
 
-			return devices.Select(s => new DeviceViewModel { Id = s.Id, Name = s.Name, RoomId = s.RoomId });
+			return devices.Select(s => new DeviceViewModel { Id = s.Id, Name = s.Name, RoomId = s.RoomId, TypeId = s.TypeId });
 		}
 	}
 }

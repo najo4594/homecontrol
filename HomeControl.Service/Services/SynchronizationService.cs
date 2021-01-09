@@ -71,7 +71,7 @@ namespace HomeControl.Service.Services
 				{
 					Room room = GetRoomForDevice(groups, rooms, lightId);
 					DeviceType deviceType = GetDeviceType(light.Type);
-					deviceToSave = new Device { DeviceId = lightId, Room = room, DeviceTypeId = (int)deviceType };
+					deviceToSave = new Device { DeviceId = lightId, Room = room, TypeId = (int)deviceType };
 					_context.Devices.Add(deviceToSave);
 				}
 
