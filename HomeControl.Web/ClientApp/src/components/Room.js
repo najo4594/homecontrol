@@ -55,7 +55,7 @@ class Room extends Component {
 
     render() {
         if (this.state.loading) {
-            return <p>Loading...</p>
+            return null;
         } else if (this.state.error) {
             return <p>Error happened :(</p>
         } else {
