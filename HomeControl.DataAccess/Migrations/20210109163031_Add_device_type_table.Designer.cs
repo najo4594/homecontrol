@@ -3,14 +3,16 @@ using HomeControl.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeControl.DataAccess.Migrations
 {
     [DbContext(typeof(HomeControlContext))]
-    partial class HomeControlContextModelSnapshot : ModelSnapshot
+    [Migration("20210109163031_Add_device_type_table")]
+    partial class Add_device_type_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

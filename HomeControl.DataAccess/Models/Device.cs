@@ -14,5 +14,10 @@ namespace HomeControl.DataAccess.Models
 		public int RoomId { get; set; }
 		
 		public Room Room { get; set; }
+
+		[Column("DeviceType_Id")]
+		public int DeviceTypeId { get; set; }
+
+		public DeviceType Type { get; set; }
 	}
 }
