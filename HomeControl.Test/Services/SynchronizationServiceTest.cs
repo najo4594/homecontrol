@@ -7,9 +7,8 @@ using HomeControl.Common.Enums;
 using HomeControl.DataAccess.Models;
 using HomeControl.Service.HueApi;
 using HomeControl.Service.Services;
-using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using DeviceType = HomeControl.DataAccess.Models.DeviceType;
+using DeviceType = HomeControl.Common.Enums.DeviceType;
 
 namespace HomeControl.Test.Services
 {
@@ -34,16 +33,16 @@ namespace HomeControl.Test.Services
 
 		private readonly List<Room> _expectedRoomsResult = new List<Room>
 		{
-			new Room { Id = 1, RoomId = 1, Name = "Updated Room 1" },
-			new Room { Id = 2, RoomId = 2, Name = "New Room 2" },
+			new Room { RoomId = 1, Name = "Updated Room 1" },
+			new Room { RoomId = 2, Name = "New Room 2" }
 		};
 
 		private readonly List<Device> _expectedDevicesResult = new List<Device>
 		{
-			new Device { Id = 1, DeviceId = 1, Name = "Updated Light 1", TypeId = (int)Common.Enums.DeviceType.Light, RoomId = 1 },
-			new Device { Id = 2, DeviceId = 2, Name = "New Socket 2", TypeId = (int)Common.Enums.DeviceType.Socket, RoomId = 1 },
-			new Device { Id = 3, DeviceId = 3, Name = "New Light 3", TypeId = (int)Common.Enums.DeviceType.Light, RoomId = 2 },
-			new Device { Id = 4, DeviceId = 4, Name = "New Light 4", TypeId = (int)Common.Enums.DeviceType.Light, RoomId = 2 },
+			new Device { DeviceId = 1, Name = "Updated Light 1", TypeId = (int)DeviceType.Light, RoomId = 1 },
+			new Device { DeviceId = 2, Name = "New Socket 2", TypeId = (int)DeviceType.Socket, RoomId = 1 },
+			new Device { DeviceId = 3, Name = "New Light 3", TypeId = (int)DeviceType.Light, RoomId = 2 },
+			new Device { DeviceId = 4, Name = "New Light 4", TypeId = (int)DeviceType.Light, RoomId = 2 }
 		};
 
 		private IHueApi _hueApi;
@@ -59,8 +58,8 @@ namespace HomeControl.Test.Services
 			A.CallTo(() => _hueApi.GetAllGroups()).Returns(_groupsFromApi);
 			A.CallTo(() => _hueApi.GetAllLights()).Returns(_lightsFromApi);
 
-			var existingDeviceTypeLight = new DeviceType { Id = (int)Common.Enums.DeviceType.Light };
-			var existingDeviceTypeSocket = new DeviceType { Id = (int)Common.Enums.DeviceType.Socket };
+			var existingDeviceTypeLight = new DataAccess.Models.DeviceType { Id = (int)DeviceType.Light };
+			var existingDeviceTypeSocket = new DataAccess.Models.DeviceType { Id = (int)DeviceType.Socket };
 			Context.DeviceTypes.AddRange(existingDeviceTypeLight, existingDeviceTypeSocket);
 
 			var existingRoom = new Room { RoomId = 1, Name = "Existing Room 1" };
@@ -80,9 +79,20 @@ namespace HomeControl.Test.Services
 
 			// Assert
 			List<Room> roomsResult = Context.Rooms.ToList();
-			roomsResult.Should().BeEquivalentTo(_expectedRoomsResult, options => options.Excluding(e => e.Devices));
+			roomsResult.Should()
+				.BeEquivalentTo(
+					_expectedRoomsResult,
+					options => options
+						.Excluding(e => e.Id)
+						.Excluding(e => e.Devices));
 			List<Device> devicesResult = Context.Devices.ToList();
-			devicesResult.Should().BeEquivalentTo(devicesResult);
+			devicesResult.Should()
+				.BeEquivalentTo(
+					_expectedDevicesResult,
+					options => options
+						.Excluding(e => e.Id)
+						.Excluding(e => e.Room)
+						.Excluding(e => e.Type));
 		}
 	}
 }
