@@ -64,17 +64,24 @@ namespace HomeControl.Service.Services
 			foreach (int lightId in lights.Keys)
 			{
 				Light light = lights[lightId];
-
+				Room room = GetRoomForDevice(groups, rooms, lightId);
+				
+				if (room == null)
+				{
+					// Don't save devices that belong to a group with another type than 'Room'
+					continue;
+				}
+				
 				Device deviceToSave = existingDevices.FirstOrDefault(r => r.DeviceId == lightId);
 
 				if (deviceToSave == null)
 				{
-					Room room = GetRoomForDevice(groups, rooms, lightId);
-					DeviceType deviceType = GetDeviceType(light.Type);
-					deviceToSave = new Device { DeviceId = lightId, Room = room, TypeId = (int)deviceType };
+					deviceToSave = new Device { DeviceId = lightId, Room = room };
 					_context.Devices.Add(deviceToSave);
 				}
 
+				DeviceType deviceType = GetDeviceType(light.Type);
+				deviceToSave.TypeId = (int)deviceType;
 				deviceToSave.Name = light.Name;
 			}
 		}
