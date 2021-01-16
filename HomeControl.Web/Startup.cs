@@ -37,8 +37,6 @@ namespace HomeControl.Web
 			// 	options => options.UseSqlServer(Configuration.GetConnectionString(("HomeControl"))));
 
 			services.AddSingleton<IHueApi, HueApi>();
-			
-			services.AddTransient<IHomeControlRepository, HomeControlRepository>();
 			services.AddTransient<IHttpClient, HttpClient>();
 			services.AddTransient<IRoomService, RoomService>();
 			services.AddTransient<ISynchronizationService, SynchronizationService>();
