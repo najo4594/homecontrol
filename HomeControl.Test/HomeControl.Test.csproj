@@ -20,6 +20,7 @@
       <ProjectReference Include="..\HomeControl.Common\HomeControl.Common.csproj" />
       <ProjectReference Include="..\HomeControl.DataAccess\HomeControl.DataAccess.csproj" />
       <ProjectReference Include="..\HomeControl.Service\HomeControl.Service.csproj" />
+      <ProjectReference Include="..\HomeControl.Web\HomeControl.Web.csproj" />
     </ItemGroup>
 
 </Project>
