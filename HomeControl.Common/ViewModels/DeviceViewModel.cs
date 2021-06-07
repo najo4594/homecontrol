@@ -8,6 +8,6 @@
 
 		public int RoomId { get; set; }
 
-		public LightStateViewModel State { get; set; }
+		public int TypeId { get; set; }
 	}
 }

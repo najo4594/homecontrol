@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HomeControl.DataAccess.Models
 {
-	public class Room
+	[Table("DeviceTypes")]
+	public class DeviceType
 	{
 		public int Id { get; set; }
 
 		public string Name { get; set; }
 
-		public int RoomId { get; set; }
-		
 		public List<Device> Devices { get; set; }
 	}
 }

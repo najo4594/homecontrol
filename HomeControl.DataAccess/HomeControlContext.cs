@@ -12,5 +12,14 @@ namespace HomeControl.DataAccess
 		public DbSet<Room> Rooms { get; set; }
 
 		public DbSet<Device> Devices { get; set; }
+
+		public DbSet<DeviceType> DeviceTypes { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Room>().HasIndex(i => i.RoomId).IsUnique();
+			
+			modelBuilder.Entity<Device>().HasIndex(i => i.DeviceId).IsUnique();
+		}
 	}
 }

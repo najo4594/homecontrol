@@ -7,15 +7,19 @@
     <ItemGroup>
       <Compile Remove="Migrations\20200705152437_DataSetup.cs" />
       <Compile Remove="Migrations\20200705152437_DataSetup.Designer.cs" />
+      <Compile Remove="Migrations\20210107194420_AddRoomIdToRooms.cs" />
+      <Compile Remove="Migrations\20210107194420_AddRoomIdToRooms.Designer.cs" />
+      <Compile Remove="Migrations\20210107194716_Test.cs" />
+      <Compile Remove="Migrations\20210107194716_Test.Designer.cs" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5">
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.2" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.2" />
     </ItemGroup>
 
 </Project>

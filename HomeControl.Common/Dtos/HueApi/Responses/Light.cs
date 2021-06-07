@@ -1,9 +1,9 @@
 ﻿namespace HomeControl.Common.Dtos.HueApi.Responses
 {
-	public class LightItemResponseDto
+	public class Light
 	{
 		public string Name { get; set; }
 
-		public LightStateResponseDto State { get; set; }
+		public string Type { get; set; }
 	}
 }

@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HomeControl.Common.ViewModels;
 
 namespace HomeControl.Service.Services.Interfaces
 {
 	public interface IRoomService
 	{
-		Task<IEnumerable<RoomViewModel>> GetAllRooms();
+		IEnumerable<RoomViewModel> GetAllRooms();
+
+		IEnumerable<DeviceViewModel> GetDevicesForRoom(int roomId);
 	}
 }

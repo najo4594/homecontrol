@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HomeControl.Common.ViewModels;
 using HomeControl.Service.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +17,16 @@ namespace HomeControl.Web.Controllers
 		}
 
 		[HttpGet]
-		public Task<IEnumerable<RoomViewModel>> GetAllRooms()
+		public IEnumerable<RoomViewModel> GetAllRooms()
 		{
 			return _roomService.GetAllRooms();
+		}
+
+		[HttpGet]
+		[Route("[Action]")]
+		public IEnumerable<DeviceViewModel> Devices([FromQuery] int roomId)
+		{
+			return _roomService.GetDevicesForRoom(roomId);
 		}
 	}
 }

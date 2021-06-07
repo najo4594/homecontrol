@@ -3,41 +3,43 @@ using HomeControl.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeControl.DataAccess.Migrations
 {
     [DbContext(typeof(HomeControlContext))]
-    partial class HomeControlContextModelSnapshot : ModelSnapshot
+    [Migration("20210109163817_Fix_device_type_name")]
+    partial class Fix_device_type_name
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
+                .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "3.1.5");
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("HomeControl.DataAccess.Models.Device", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("DeviceId")
                         .HasColumnType("int");
 
                     b.Property<int>("DeviceTypeId")
-                        .HasColumnType("int")
-                        .HasColumnName("DeviceType_Id");
+                        .HasColumnName("DeviceType_Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RoomId")
-                        .HasColumnType("int")
-                        .HasColumnName("Room_Id");
+                        .HasColumnName("Room_Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -56,7 +58,7 @@ namespace HomeControl.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -71,7 +73,7 @@ namespace HomeControl.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -100,20 +102,6 @@ namespace HomeControl.DataAccess.Migrations
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Room");
-
-                    b.Navigation("Type");
-                });
-
-            modelBuilder.Entity("HomeControl.DataAccess.Models.DeviceType", b =>
-                {
-                    b.Navigation("Devices");
-                });
-
-            modelBuilder.Entity("HomeControl.DataAccess.Models.Room", b =>
-                {
-                    b.Navigation("Devices");
                 });
 #pragma warning restore 612, 618
         }

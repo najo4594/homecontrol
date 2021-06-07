@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using HomeControl.Common.ViewModels;
 using HomeControl.DataAccess;
 using HomeControl.DataAccess.Models;
@@ -11,18 +9,25 @@ namespace HomeControl.Service.Services
 {
 	public class RoomService : IRoomService
 	{
-		private readonly IHomeControlRepository _homeControlRepository;
+		private readonly HomeControlContext _context;
 
-		public RoomService(IHomeControlRepository homeControlRepository)
+		public RoomService(HomeControlContext context)
 		{
-			_homeControlRepository = homeControlRepository;
+			_context = context;
 		}
 
-		public async Task<IEnumerable<RoomViewModel>> GetAllRooms()
+		public IEnumerable<RoomViewModel> GetAllRooms()
 		{
-			List<Room> rooms = await _homeControlRepository.GetAllRooms().ConfigureAwait(false);
+			List<Room> rooms = _context.Rooms.ToList();
 
-			return rooms.Select(s => new RoomViewModel { Id = s.Id, Name = s.Name }).ToList();
+			return rooms.Select(s => new RoomViewModel { Id = s.Id, Name = s.Name });
+		}
+
+		public IEnumerable<DeviceViewModel> GetDevicesForRoom(int roomId)
+		{
+			List<Device> devices = _context.Devices.Where(r => r.Room.RoomId == roomId).ToList();
+
+			return devices.Select(s => new DeviceViewModel { Id = s.Id, Name = s.Name, RoomId = s.RoomId, TypeId = s.TypeId });
 		}
 	}
 }

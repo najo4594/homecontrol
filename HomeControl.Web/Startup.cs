@@ -32,17 +32,12 @@ namespace HomeControl.Web
 					(serviceProvider, options) =>
 						options.UseSqlServer(Configuration.GetConnectionString("HomeControl"))
 							.UseInternalServiceProvider(serviceProvider));
-			
-			// services.AddDbContext<HomeControlContext>(
-			// 	options => options.UseSqlServer(Configuration.GetConnectionString(("HomeControl"))));
 
 			services.AddSingleton<IHueApi, HueApi>();
-			
-			services.AddTransient<IHomeControlRepository, HomeControlRepository>();
 			services.AddTransient<IHttpClient, HttpClient>();
-			services.AddTransient<ILightService, LightService>();
 			services.AddTransient<IRoomService, RoomService>();
-			
+			services.AddTransient<ISynchronizationService, SynchronizationService>();
+
 			// In production, the React files will be served from this directory
 			services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
 		}
